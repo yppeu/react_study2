@@ -10,7 +10,7 @@ function App() {
   const [따봉,따봉변경] = useState(0);
   let [modal, setModal] = useState(false);
   let [title, setTitle] = useState(0);
-
+  let [입력값,입력값변경] = useState('');
 
   return (
     <div className="App">
@@ -21,19 +21,35 @@ function App() {
       글제목.map(function (data,i) {
         return (
           <div className="list" key={i}>
-            <h4 onClick={()=>{setModal(!modal); setTitle(i)}}>{글제목[i]}
+            <h4 onClick={(e)=>{e.stopPropagation(); setModal(!modal); setTitle(i)}}>{data}
               <span onClick={()=>{따봉변경(따봉+1)}}>❤️</span>{따봉}</h4>
             <p>10월 26일 발행</p>
           </div>
         );
       })
       }
+
+      <input type="text" onChange={(e)=>{
+        입력값변경(e.target.value);
+        console.log(입력값);
+      }}/>
+      <button type="submit" onClick={()=>{
+          const 글제목2 = 글제목.concat(입력값);
+          글제목변경(글제목2)
+      }}>추가</button>
+      <button onClick={()=>{
+          const 글제목3 = 글제목.concat(입력값);
+          글제목변경(글제목3.filter(입력값))
+        }}>삭제</button>
+
         {
           modal === true ? <Modal color={'pink'} title={title} 글제목={글제목} 글제목변경={글제목변경} /> : <></>
         }
+        
       </div>
   );
 }
+
 
 function Modal(props){
   return(
