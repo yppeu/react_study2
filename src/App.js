@@ -22,8 +22,19 @@ function App() {
         return (
           <div className="list" key={i}>
             <h4 onClick={(e)=>{e.stopPropagation(); setModal(!modal); setTitle(i)}}>{data}
-              <span onClick={()=>{따봉변경(따봉+1)}}>❤️</span>{따봉}</h4>
+              <span onClick={()=>{따봉변경(따봉+1)           
+              let copy = [...글제목];
+              copy.splice(입력값);
+              글제목변경(copy);
+              }} >❤️</span>{따봉}</h4>
+
             <p>10월 26일 발행</p>
+            
+            <button onClick={()=>{
+              let copy = [...글제목];
+              copy.splice(i,1);
+              글제목변경(copy);
+            }}>삭제</button>
           </div>
         );
       })
@@ -33,14 +44,14 @@ function App() {
         입력값변경(e.target.value);
         console.log(입력값);
       }}/>
+
       <button type="submit" onClick={()=>{
+          // let copy = [...글제목]
+          // copy.unshift(입력값);
+          // 글제목변경(copy);
           const 글제목2 = 글제목.concat(입력값);
           글제목변경(글제목2)
       }}>추가</button>
-      <button onClick={()=>{
-          const 글제목3 = 글제목.concat(입력값);
-          글제목변경(글제목3.filter(입력값))
-        }}>삭제</button>
 
         {
           modal === true ? <Modal color={'pink'} title={title} 글제목={글제목} 글제목변경={글제목변경} /> : <></>
